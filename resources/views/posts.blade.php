@@ -3,8 +3,7 @@
 <title>Test Title</title>
 
 <link rel="stylesheet" href="/app.css">
-<script src="/app.js"></script>
 
 <body>
-    <h1>Hello There</h1>
+    <h1><a href="/post/my-first-post">Click here</a></h1>
 </body>
