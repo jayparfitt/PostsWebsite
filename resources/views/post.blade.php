@@ -1,15 +1,15 @@
 <!doctype html>
 
-<title>New Page</title>
+<title>{{ $post->title }}</title> 
 
 <link rel="stylesheet" href="/app.css">
 
 <body>
 <article>
-    <h1>New Info</h1>
+    <h1>{{ $post->title }}</h1> 
 
     <p>
-        new information has been found
+        {!! $post->body !!} 
     </p>
 </article>
 
