@@ -5,5 +5,15 @@
 <link rel="stylesheet" href="/app.css">
 
 <body>
-    <h1><a href="/post/my-first-post">Click here</a></h1>
+    <?php foreach ($posts as $post) : ?>
+        <article>
+            <a href="/posts/<?= $post->slug; ?>">
+            <h1><?= $post->title; ?></h1>
+        </a>
+
+            <div>
+                <?= $post->excerpt; ?>
+            </div>
+        </article>
+    <?php endforeach; ?>
 </body>
