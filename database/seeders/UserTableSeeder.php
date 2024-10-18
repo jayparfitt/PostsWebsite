@@ -20,7 +20,9 @@ class UserTableSeeder extends Seeder
         $u->role = "user";
         $u->save();
 
-        User::factory()->count(10)->create();
+        User::factory()->count(3)->state(['role' => 'admin'])->create();
+
+        User::factory()->count(7)->state(['role' => 'user'])->create();
         
     }
 }

@@ -9,4 +9,12 @@ use Illuminate\Notifications\Notifiable;
 class User extends Model
 {
     use HasFactory, Notifiable;
+
+    public function posts(){
+        return $this->hasMany(Posts::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comments::class);
+    }
 }

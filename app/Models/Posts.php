@@ -1,19 +1,25 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class Post
+class Posts extends Model
 {
-    public $title;
+/*     public $title;
     public $excerpt;
     public $date;
     public $body;
-    public $slug;
+    public $slug; */
 
-    public function __construct($title, $excerpt, $date, $body, $slug) 
+    use HasFactory, Notifiable;
+
+/*     public function __construct($title, $excerpt, $date, $body, $slug) 
     {
         $this -> title = $title;
         $this -> excerpt = $excerpt;
@@ -31,9 +37,9 @@ class Post
         }
 
         return $post;
-    }
+    } */
 
-    public static function all()
+/*     public static function all()
     {
         return collect(File::files(resource_path("posts")))
         ->map(fn($file) => YamlFrontMatter::parseFile($file))
@@ -45,5 +51,13 @@ class Post
             $document->slug
         ))
         ->sortByDesc('date');
+    } */
+
+    public function users(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comments::class);
     }
 }
