@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Post;
+use App\Models\Posts;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $posts = Post::all();
+    $posts = Posts::with('user')->get();
 
     return view('posts', [
         'posts' => $posts
@@ -12,9 +12,9 @@ Route::get('/', function () {
     
 });
 
-Route::get('posts/{slug}', function ($slug) {
+Route::get('posts/{id}', function ($id) {
     return view('post', [
-        'post' => Post::find($slug)
+        'post' => Posts::find($id)
     ]);
-})->where('slug', '[A-z_\-]+');
+})->where('id', '[0-9]+');
 

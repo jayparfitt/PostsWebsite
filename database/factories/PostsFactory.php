@@ -18,7 +18,8 @@ class PostsFactory extends Factory
     {
         return [
             'title' => $this ->faker->sentence(),
-            'body' => $this ->faker->paragraph(),
+            'excerpt' => $this ->faker->paragraph(),
+            'body' => $this ->faker->paragraph(3, true),
             'user_id' => \App\Models\User::factory() ->state(['role'=>'admin']) //only admins can make posts
         ];
     }
