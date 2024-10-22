@@ -13,8 +13,10 @@ Route::get('/', function () {
 });
 
 Route::get('posts/{id}', function ($id) {
+    $post = Posts::with('comments.user') ->findOrFail($id);
+
     return view('post', [
-        'post' => Posts::find($id)
+        'post' => $post
     ]);
 })->where('id', '[0-9]+');
 
