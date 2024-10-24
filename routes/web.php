@@ -5,7 +5,7 @@ use App\Models\Posts;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $posts = Posts::with('user')->get();
+    $posts = Posts::latest()->with(['user', 'module'])->get();
 
     return view('posts', [
         'posts' => $posts
