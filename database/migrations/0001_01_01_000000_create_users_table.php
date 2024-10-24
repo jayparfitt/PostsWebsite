@@ -8,15 +8,19 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * 
+     * Defines and creates the 'users' table
      */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            // user email must be unique
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['user', 'admin'])->default('user'); // Role column
+            // Defines user role, defults to 'user'
+            $table->enum('role', ['user', 'admin'])->default('user');
             $table->rememberToken();
             $table->timestamps();
         });
