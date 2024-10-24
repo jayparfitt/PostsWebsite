@@ -28,8 +28,8 @@ class PostsFactory extends Factory
             'excerpt' => Str::limit($body,100),
             // Assigns body
             'body' => $body,
-            // Creates a user with the role of 'admin' and assigns it  to the user_id
-            'user_id' => User::factory() ->state(['role'=>'admin'])
+            // Select a random existing admin user
+            'user_id' => User::where('role', 'admin')->inRandomOrder()->first()->id
         ];
     }
 }
