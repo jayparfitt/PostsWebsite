@@ -21,12 +21,15 @@ class CommentTableSeeder extends Seeder
         // Loop through each post in the database
         Posts::all()->each(function ($post) {
             // create 5 comments for each post
-            Comments::factory()->count(5)->create([
-                // assign post_id to the current post
-                'post_id' => $post->id,
-                //assign a random user as the commenter
-                'user_id' => User::inRandomOrder()->first()->id
-            ]);
+            for ($i = 0; $i < 5; $i++) {
+                // for each comment, select a random user
+                Comments::factory()->create([
+                    // assign post_id to the current post
+                    'post_id' => $post->id,
+                    //assign a random user as the commenter
+                    'user_id' => User::inRandomOrder()->first()->id
+                ]);
+            }
         });
     }
 }
