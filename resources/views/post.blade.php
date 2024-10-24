@@ -7,7 +7,9 @@
 <body>
 <article>
     <h1>{{ $post->title }}</h1> 
-
+    <p>Module: 
+                <a href="/modules/{{ $post->module->slug }}"> {{ $post->module->name }} </a>
+            </p>
     <div>
         <p>{!! $post->body !!}</p>
 </div>

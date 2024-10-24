@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Module;
 use App\Models\Posts;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,10 @@ Route::get('posts/{id}', function ($id) {
     ]);
 })->where('id', '[0-9]+');
 
+Route::get('modules/{module:slug}', function (Module $module){
+    $posts = Posts::with('user')->get();
+
+    return view('posts', [
+        'posts' => $module->posts
+    ]);
+});
