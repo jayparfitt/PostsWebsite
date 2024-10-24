@@ -32,4 +32,14 @@ class Posts extends Model
     public function comments(){
         return $this->hasMany(Comments::class, 'post_id');
     }
+
+    /**
+     * A post belongs to a module
+     * Each post has one module
+     * 
+     * @return hasMany
+     */
+    public function module(){
+        return $this->belongsTo(Module::class);
+    }
 }

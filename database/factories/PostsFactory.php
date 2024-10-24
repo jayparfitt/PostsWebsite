@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Module;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -29,7 +30,9 @@ class PostsFactory extends Factory
             // Assigns body
             'body' => $body,
             // Select a random existing admin user
-            'user_id' => User::where('role', 'admin')->inRandomOrder()->first()->id
+            'user_id' => User::where('role', 'admin')->inRandomOrder()->first()->id,
+            // Select a random existing module
+            'module_id' => Module::inRandomOrder()->first()->id
         ];
     }
 }

@@ -11,8 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Calls the individual seeders for users, posts, and comments
+        // Calls the individual seeders for modules, users, posts, and comments
         $this->call([
+            ModuleTableSeeder::class,
             UserTableSeeder::class,
             PostTableSeeder::class,
             CommentTableSeeder::class

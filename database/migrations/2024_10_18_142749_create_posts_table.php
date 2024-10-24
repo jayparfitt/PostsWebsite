@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            /**
+             * Foreign key referencing the 'modules' table
+             * Ensures the foreign key constraint is applied
+             * Deletes the post if the related user is deleted
+             */
+            $table->foreignId('module_id');
             $table->string("title");
             $table->text('excerpt');
             $table->text("body");
