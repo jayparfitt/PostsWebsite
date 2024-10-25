@@ -18,9 +18,9 @@ return new class extends Migration
             /**
              * Foreign key referencing the 'modules' table
              * Ensures the foreign key constraint is applied
-             * Deletes the post if the related user is deleted
+             * Deletes the post if the related module is deleted
              */
-            $table->foreignId('module_id');
+            $table->foreignId('module_id')->constrained()->onDelete('cascade');
             $table->string("title");
             $table->text('excerpt');
             $table->text("body");
