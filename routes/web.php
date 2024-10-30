@@ -25,6 +25,6 @@ Route::get('modules/{module:slug}', function (Module $module){
     $posts = Posts::with('user')->get();
 
     return view('posts', [
-        'posts' => $module->posts
+        'posts' => $module->posts->load(['module','user'])
     ]);
 });
