@@ -12,3 +12,6 @@ Route::get('posts/{id}', [PostController::class, 'show'])->where('id', '[0-9]+')
 
 // Route for displaying posts in a specific module by slug
 Route::get('modules/{module:slug}', [ModuleController::class, 'show']);
+
+// Auth routes from Laravel Breeze
+require __DIR__.'/auth.php';

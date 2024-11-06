@@ -4,11 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
     // Enables the model to use factories, allowing for fake data
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role'
+    ];
+    
 
     /**
      * A relationship where a User can have many Posts
