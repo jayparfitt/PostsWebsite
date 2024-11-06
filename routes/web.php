@@ -1,30 +1,14 @@
 <?php
 
-use App\Models\Module;
-use App\Models\Posts;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $posts = Posts::latest()->with(['user', 'module'])->get();
+// Route for displaying all posts on the homepage
+Route::get('/', [PostController::class, 'index']);
 
-    return view('posts', [
-        'posts' => $posts
-    ]);
-    
-});
+// Route for displaying a single post with comments
+Route::get('posts/{id}', [PostController::class, 'show'])->where('id', '[0-9]+');
 
-Route::get('posts/{id}', function ($id) {
-    $post = Posts::with('comments.user') ->findOrFail($id);
-
-    return view('post', [
-        'post' => $post
-    ]);
-})->where('id', '[0-9]+');
-
-Route::get('modules/{module:slug}', function (Module $module){
-    $posts = Posts::with('user')->get();
-
-    return view('posts', [
-        'posts' => $module->posts->load(['module','user'])
-    ]);
-});
+// Route for displaying posts in a specific module by slug
+Route::get('modules/{module:slug}', [ModuleController::class, 'show']);
