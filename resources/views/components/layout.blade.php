@@ -36,6 +36,14 @@
                     @csrf
                 </form>
                 @endauth
+
+                @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('posts.create') }}" class="btn btn-primary">
+                        Create New Post
+                    </a>
+                @endif
+                @endauth
             </div>
         </nav>
 

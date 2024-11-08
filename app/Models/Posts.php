@@ -11,7 +11,9 @@ class Posts extends Model
     use HasFactory;
 
     // Attributes to be mass assigned
-    protected $fillable = ['title', 'body', 'user_id'];
+    protected $fillable = [
+        'title', 'excerpt', 'body', 'module_id', 'user_id'
+    ];
 
     /**
      * A relationship where Post belongs to User

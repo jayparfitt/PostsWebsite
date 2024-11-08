@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Module;
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -30,7 +32,12 @@ class PostController extends Controller
     // Show the form to create a new post
     public function create()
     {
-        return view('posts.create');
+        if (Auth::user()->role !== 'admin') {
+            return redirect('/')->with('error', 'Unauthorized access');
+        }
+        $modules = Module::all();
+
+        return view('posts.create', ['modules' => $modules]);
     }
 
     // Store a new post
@@ -38,17 +45,29 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'module_id' => 'required|exists:modules,id'
+            'excerpt' => 'required|string|max:500',
+            'body' => 'required|string',
+            'module_id' => 'nullable|exists:modules,id',
+            'newModuleName' => 'nullable|string|max:255'
         ]);
 
-        // Optionally, add auth()->id() if authentication is set up.
-        // $validated['user_id'] = auth()->id(); 
+        // for new module creation
+        if (!empty($validated['newModuleName'])) {
+            $newModule = Module::create(['name' => $validated['newModuleName']]);
+            $validated['module_id'] = $newModule->id;
+        }
+
+        // Check a module is associated
+        if (empty($validated['module_id'])) {
+            return redirect()->back()->withErrors(['module_id' => 'Please select or create a module']);
+        }
+
+        $validated['user_id'] = Auth::id();
 
         Posts::create($validated);
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
-    
+
     // Show the form to edit an existing post
     public function edit($id)
     {
