@@ -42,6 +42,9 @@
             <label for="newModuleName" class="block text-sm font-bold text-gray-700">New Module Name</label>
             <input type="text" id="newModuleName" name="newModuleName"
                 class="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">
+
+            <button type="button" id="cancelButton"
+                class="mt-2 text-xs font-bold uppercase bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full">Cancel</button>
         </div>
 
         <div class="text-center">
@@ -52,9 +55,22 @@
         </div>
 
         <script>
-            document.getElementById('addModule').addEventListener('click', function() {
-                const newModuleSection = document.getElementById('newModuleSelection');
-                newModuleSection.style.display = newModuleSection.style.display === 'none' ? 'block' : 'none';
+            const newModuleName = document.getElementById('newModuleName');
+            const addModuleButton = document.getElementById('addModule');
+            const cancelModuleButton = document.getElementById('cancelButton');
+            const newModuleSection = document.getElementById('newModuleSelection');
+            const moduleDropdown = document.getElementById('module_id');
+
+            addModuleButton.addEventListener('click', function() {
+                newModuleSection.style.display = 'block';
+                moduleDropdown.disabled = true;
+            });
+
+            cancelModuleButton.addEventListener('click', function() {
+                newModuleSection.style.display = 'none';
+                moduleDropdown.disabled = false;
+                moduleDropdown.selectedIndex = 0;
+                document.getElementById('newModule').value = '';
             });
         </script>
 </x-layout>
