@@ -53,7 +53,10 @@ class PostController extends Controller
 
         // for new module creation
         if (!empty($validated['newModuleName'])) {
-            $newModule = Module::create(['name' => $validated['newModuleName']]);
+            $newModule = Module::create([
+                'name' => $validated['newModuleName'],
+                'slug' => \Illuminate\Support\Str::slug($validated['newModuleName'])
+            ]);
             $validated['module_id'] = $newModule->id;
         }
 
