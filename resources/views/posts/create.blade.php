@@ -55,7 +55,6 @@
         </div>
 
         <script>
-            const newModuleName = document.getElementById('newModuleName');
             const addModuleButton = document.getElementById('addModule');
             const cancelModuleButton = document.getElementById('cancelButton');
             const newModuleSection = document.getElementById('newModuleSelection');
