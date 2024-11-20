@@ -72,22 +72,26 @@ class PostController extends Controller
     }
 
     // Show the form to edit an existing post
-    public function edit($id)
+    public function edit(Posts $post)
     {
-        $post = Posts::findOrFail($id);
-        return view('posts.edit', compact('post'));
+        if(Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized Action');
+        }
+
+        $modules = Module::all();
+        return view('posts.edit', compact('post', 'modules'));
     }
 
     // Update an existing post
-    public function update(Request $request, $id)
+    public function update(Request $request, Posts $post)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'excerpt' => 'required|string|max:500',
+            'body' => 'required|string',
             'module_id' => 'required|exists:modules,id'
         ]);
 
-        $post = Posts::findOrFail($id);
         $post->update($validated);
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');

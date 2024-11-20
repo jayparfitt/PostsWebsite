@@ -76,33 +76,40 @@
                             {{$post->body}}
                         </p>
                     </div>
+                    @if (Auth::id() === $post->user_id)
+                    <div class="mt-6">
+                        <a href="{{ route('posts.edit', $post) }}"
+                            class="transition-colors duration-300 bg-yellow-500 hover:bg-yellow-600 rounded-full text-xs font-semibold text-white uppercase py-2 px-4">
+                            Edit Post
+                        </a>
+                    </div>
+                    @endif
                 </div>
             </article>
         </main>
 
-<section>
-    <h1 class="font-bold text-3xl lg:text-4xl mb-10">
-                        Comments
-        </h1>
+        <section>
+            <h1 class="font-bold text-3xl lg:text-4xl mb-10">
+                Comments
+            </h1>
 
-    @if ($post->comments->count() > 0)
-        @foreach ($post->comments as $comment)
+            @if ($post->comments->count() > 0)
+            @foreach ($post->comments as $comment)
             <div class="comment">
                 <p><strong>{{ $comment->user->name ?? 'Anonymous'}}:</strong></p>
                 <p>{{ $comment-> body }}</p>
             </div>
-        @endforeach
-    @else
-        <p>No comments</p>
-    @endif
-</section>
+            @endforeach
+            @else
+            <p>No comments</p>
+            @endif
+        </section>
 
-<a href="/">Go Back</a>
+        <a href="/">Go Back</a>
 
-<footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
+        <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
             <img src="/images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-6" style="width: 145px;">
             <h5 class="text-3xl">Stay in touch with the latest posts</h5>
-            <p class="text-sm">Promise to keep the inbox clean. No bugs.</p>
 
             <div class="mt-10">
                 <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full">
