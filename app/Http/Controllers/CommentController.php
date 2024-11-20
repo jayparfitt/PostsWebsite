@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comments;
+use App\Models\Posts;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -21,18 +23,19 @@ class CommentController extends Controller
     }
 
     // Store a newly created comment
-    public function store(Request $request)
+    public function store(Request $request, Posts $post)
     {
         $validated = $request->validate([
-            'content' => 'required|string|max:500',
-            'post_id' => 'required|exists:posts,id',
+            'body' => 'required|string|max:500',
         ]);
 
-        // Optionally, add user_id if auth is set up
-        // $validated['user_id'] = auth()->id();
+        $userId = $request->user()->id;
 
-        Comments::create($validated);
-        return redirect()->route('comments.index')->with('success', 'Comment created successfully.');
+        $post->comments()->create([
+            'body' => $validated['body'],
+            'user_id' => $userId
+        ]);
+        return redirect()->route('posts.show', $post)->with('success', 'Comment created successfully.');
     }
 
     // Display a specific comment

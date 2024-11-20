@@ -10,6 +10,12 @@ class Comments extends Model
     // Enables the model to use factories, allowing for fake data
     use HasFactory;
     
+    protected $fillable = [
+        'body',
+        'post_id',
+        'user_id'
+    ];
+
     /**
      * A relationship where a Comment belongs to a post
      * 
