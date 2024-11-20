@@ -24,6 +24,6 @@
         </main>
 
         <!-- Include the comments section -->
-        @include('posts.comments', ['post' => $post])
+        @include('components.comments.comments', ['post' => $post])
     </section>
 </body>

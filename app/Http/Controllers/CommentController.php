@@ -46,24 +46,28 @@ class CommentController extends Controller
     }
 
     // Show the form to edit an existing comment
-    public function edit($id)
+    public function edit(Request $request, Comments $comment)
     {
-        $comment = Comments::findOrFail($id);
-        return view('comments.edit', compact('comment'));
+        if ($request->user()->id !== $comment->user_id) {
+            abort(403, 'Unauthorized Access');
+        }
+        return view('components.comments.editComment', compact('comment'));
     }
 
     // Update an existing comment
-    public function update(Request $request, $id)
+    public function update(Request $request, Comments $comment)
     {
+        if ($request->user()->id !== $comment->user_id) {
+            abort(403, 'Unauthorized Access');
+        }
         $validated = $request->validate([
-            'content' => 'required|string|max:500',
-            'post_id' => 'required|exists:posts,id',
+            'body' => 'required|string|max:500',
         ]);
 
-        $comment = Comments::findOrFail($id);
         $comment->update($validated);
 
-        return redirect()->route('comments.index')->with('success', 'Comment updated successfully.');
+        return redirect()->route('posts.show', $comment->post_id)
+            ->with('success', 'Comment updated successfully.');
     }
 
     // Delete a comment

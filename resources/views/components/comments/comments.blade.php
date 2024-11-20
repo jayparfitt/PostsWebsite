@@ -1,20 +1,27 @@
-<!-- resources/views/components/comments.blade.php -->
 <section class="mt-10">
     <h2 class="text-2xl font-bold">Comments</h2>
 
-    <!-- Display existing comments -->
+    <!-- Displays existing comments -->
     @if ($post->comments->count() > 0)
     @foreach ($post->comments as $comment)
     <div class="mt-4 border-b border-gray-300 pb-4">
         <p class="text-sm text-gray-600">{{ $comment->user->name ?? 'Anonymous' }} commented:</p>
         <p class="mt-2">{{ $comment->body }}</p>
+
+        <!-- Edit button for the comment owner -->
+        @if (request()->user() && request()->user()->id === $comment->user_id)
+        <a href="{{ route('comments.edit', $comment) }}"
+            class="text-blue-500 text-xs hover:underline ml-2">
+            ✏️ Edit
+        </a>
+        @endif
     </div>
     @endforeach
     @else
     <p class="mt-4 text-gray-600">No comments yet. Be the first to comment!</p>
     @endif
 
-    <!-- Add a comment form for logged-in users -->
+    <!-- Logged in users can add a comment -->
     @auth
     <form method="POST" action="{{ route('comments.store', $post) }}" class="mt-6">
         @csrf

@@ -18,6 +18,12 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store')
     ->middleware('auth');
+Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])
+    ->name('comments.edit')
+    ->middleware('auth');
+Route::patch('/comments/{comment}', [CommentController::class, 'update'])
+    ->name('comments.update')
+    ->middleware('auth');
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
