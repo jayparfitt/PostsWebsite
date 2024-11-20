@@ -1,3 +1,4 @@
+<x-layout>
 <!doctype html>
 <title>{{ $post->title }}</title>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -30,3 +31,4 @@
         @include('components.comments.comments', ['post' => $post])
     </section>
 </body>
+</x-layout>
