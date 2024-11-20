@@ -9,6 +9,9 @@
             <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
                 <div class="col-span-8">
                     <h1 class="font-bold text-3xl lg:text-4xl mb-10">{{ $post->title }}</h1>
+                    <p class="text-sm text-gray-600">
+                        Posted by: <span class="font-bold">{{ $post->user->name }}</span>
+                    </p>
                     <p>{{ $post->body }}</p>
 
                     @if (Auth::id() === $post->user_id)

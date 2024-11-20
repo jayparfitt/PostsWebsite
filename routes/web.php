@@ -6,7 +6,9 @@ use App\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 
 // Route for displaying all posts on the homepage
-Route::get('/', [PostController::class, 'index']);
+Route::get('/', [PostController::class, 'index'])->name('index');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
 
 // Route for creating posts
 Route::middleware(['auth'])->group(function () {
