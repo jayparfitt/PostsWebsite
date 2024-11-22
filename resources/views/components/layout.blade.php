@@ -10,7 +10,7 @@
         <nav class="md:flex md:justify-between md:items-center">
             <div>
                 <a href="/">
-                    <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
+                    <img src="/images/logo.png" alt="testTitle" width="180" height="50">
                 </a>
             </div>
 
@@ -31,7 +31,7 @@
                 <div class="relative">
                     <button id="user-menu-button" class="flex items-center focus:outline-none">
                         <img class="h-8 w-8 rounded-full border-2 border-gray-300"
-                            src="/images/default-avatar.png"
+                            src="/images/userIcon.png"
                             alt="{{ Auth::user()->name }}">
                     </button>
 

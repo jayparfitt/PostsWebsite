@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/users/{user}/posts', [UserController::class, 'show'])->name('users.posts');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::post('/logout', function () {
     FacadesAuth::logout();
     return redirect('/'); 
