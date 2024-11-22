@@ -49,12 +49,11 @@
                 class="transition-colors duration-300 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                 Delete Account
             </button>
+            @if (session('success'))
+            <div class="bg-green-500 text-white text-center py-4 px-6 mb-4">
+                {{ session('success') }}
+            </div>
+            @endif
         </div>
-
-        @if (session('success'))
-        <div class="bg-green-500 text-white text-center py-4 px-6 mb-4">
-            {{ session('success') }}
-        </div>
-        @endif
     </form>
 </x-layout>

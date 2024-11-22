@@ -74,7 +74,7 @@ class PostController extends Controller
     // Show the form to edit an existing post
     public function edit(Posts $post)
     {
-        if(Auth::id() !== $post->user_id) {
+        if (Auth::id() !== $post->user_id) {
             abort(403, 'Unauthorized Action');
         }
 
@@ -98,10 +98,20 @@ class PostController extends Controller
     }
 
     // Delete a post
-    public function destroy($id)
+    public function destroy(Posts $post)
     {
-        $post = Posts::findOrFail($id);
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized Action');
+        }
         $post->delete();
+
+        $module = $post->module;
+        $post->delete();
+
+        // If the only post in the module is deleted, then so is the module
+        if ($module && $module->posts()->count() === 0) {
+            $module->delete();
+        }
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }

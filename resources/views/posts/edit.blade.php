@@ -6,6 +6,7 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 CDN -->
 </head>
 
 <body style="font-family: Open Sans, sans-serif">
@@ -66,9 +67,39 @@
                     </button>
                 </div>
             </form>
+
+            <div class="text-center mt-6">
+                <button id="delete-post"
+                    class="transition-colors duration-300 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+                    Delete Post
+                </button>
+                <form id="delete-form" method="POST" action="{{ route('posts.destroy', $post) }}" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            </div>
         </main>
     </section>
 
+    <!-- SweetAlert2 Script -->
+    <script>
+        document.getElementById('delete-post').addEventListener('click', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to undo this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form').submit();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
