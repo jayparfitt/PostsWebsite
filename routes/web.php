@@ -4,6 +4,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
+use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Route;
 
 // Route for displaying all posts on the homepage
@@ -19,8 +21,16 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 });
 
+// UserController Routes
 Route::get('/users/{user}/posts', [UserController::class, 'show'])->name('users.posts');
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::post('/logout', function () {
+    FacadesAuth::logout();
+    return redirect('/'); 
+})->name('logout');
 
+// CommentController Routes
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store')
     ->middleware('auth');
 Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])

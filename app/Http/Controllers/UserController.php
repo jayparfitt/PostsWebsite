@@ -50,13 +50,20 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
-            // Additional validation rules as necessary
+            'password' => 'nullable|min:8|confirmed'
         ]);
 
         $user = User::findOrFail($id);
-        $user->update($request->only('name', 'email'));
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
 
-        return redirect()->route('users.show', $user->id)->with('success', 'User updated successfully.');
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
+
+        $user->save();
+
+        return redirect()->route('users.edit', $user->id)->with('success', 'User updated successfully.');
     }
 
     /**
