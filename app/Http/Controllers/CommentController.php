@@ -51,7 +51,7 @@ class CommentController extends Controller
         if ($request->user()->id !== $comment->user_id) {
             abort(403, 'Unauthorized Access');
         }
-        return view('components.comments.editComment', compact('comment'));
+        return view('comments.editComment', compact('comment'));
     }
 
     // Update an existing comment

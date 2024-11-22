@@ -28,7 +28,7 @@
         </main>
 
         <!-- Include the comments section -->
-        @include('components.comments.comments', ['post' => $post])
+        @include('comments.comments', ['post' => $post])
     </section>
 </body>
 </x-layout>
