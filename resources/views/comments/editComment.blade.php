@@ -18,4 +18,14 @@
             </button>
         </div>
     </form>
+
+    <form method="POST" action="{{ route('comments.destroy', $comment) }}" onsubmit="return confirm('Are you sure you want to delete this comment?');" class="mt-4">
+        @csrf
+        @method('DELETE')
+
+        <button type="submit"
+            class="transition-colors duration-300 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
+            Delete Comment
+        </button>
+    </form>
 </x-layout>

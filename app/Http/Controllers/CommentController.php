@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comments;
 use App\Models\Posts;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -71,11 +71,13 @@ class CommentController extends Controller
     }
 
     // Delete a comment
-    public function destroy($id)
+    public function destroy(Comments $comment)
     {
-        $comment = Comments::findOrFail($id);
+        if (Auth::id() !== $comment->user_id) {
+            abort(403, 'Unauthorized Action');
+        }
         $comment->delete();
 
-        return redirect()->route('comments.index')->with('success', 'Comment deleted successfully.');
+        return redirect()->route('posts.show', $comment->post_id)->with('success', 'Comment deleted successfully.');
     }
 }

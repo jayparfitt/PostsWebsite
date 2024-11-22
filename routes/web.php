@@ -29,7 +29,7 @@ Route::put('/users/{user}', [UserController::class, 'update'])->name('users.upda
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::post('/logout', function () {
     FacadesAuth::logout();
-    return redirect('/'); 
+    return redirect('/');
 })->name('logout');
 
 // CommentController Routes
@@ -41,6 +41,10 @@ Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])
 Route::patch('/comments/{comment}', [CommentController::class, 'update'])
     ->name('comments.update')
     ->middleware('auth');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+    ->name('comments.destroy')
+    ->middleware('auth');
+
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
