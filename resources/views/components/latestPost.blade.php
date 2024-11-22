@@ -17,7 +17,7 @@
                 <div class="mt-4">
                     <h1 class="text-3xl">
                         <a href="{{ route('posts.show', $post) }}" class="text-black-500 hover:underline">
-                        {{ $post->title }}
+                            {{ $post->title }}
                         </a>
                     </h1>
 
@@ -37,7 +37,9 @@
                 <div class="flex items-center text-sm">
                     <img src="/images/lary-avatar.svg" alt="Lary avatar">
                     <div class="ml-3">
-                        <h5 class="font-bold">{{ $post->user->name }}</h5>
+                        <a href="{{ route('users.posts', $post->user->id) }}" class="text-black-500 hover:underline">
+                            <h5 class="font-bold">{{ $post->user->name }}</h5>
+                        </a>
                     </div>
                 </div>
 

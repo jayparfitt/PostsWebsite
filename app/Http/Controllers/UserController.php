@@ -21,12 +21,15 @@ class UserController extends Controller
     /**
      * Display the specified user and their posts.
      */
-    public function show($id)
+    public function show(User $user)
     {
         // Find user by ID, load their posts and any other relationships
-        $user = User::with('posts', 'comments')->findOrFail($id);
+        $posts = $user->posts()->latest()->paginate(10);
 
-        return view('users.show', compact('user'));
+        return view('users.posts', [
+            'user' => $user,
+            'posts' => $posts
+        ]);
     }
 
     /**

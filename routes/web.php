@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Route for displaying all posts on the homepage
@@ -17,6 +18,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 });
+
+Route::get('/users/{user}/posts', [UserController::class, 'show'])->name('users.posts');
 
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store')
     ->middleware('auth');
