@@ -15,6 +15,10 @@
                     </p>
                     <p>{{ $post->body }}</p>
 
+                    <p class="mb-4">
+                        <strong>Views:</strong> {{ $viewCount }} unique views
+                    </p>
+
                     @if (Auth::id() === $post->user_id)
                     <div class="mt-6">
                         <a href="{{ route('posts.edit', $post) }}"

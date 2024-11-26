@@ -39,9 +39,18 @@ class Posts extends Model
      * A post belongs to a module
      * Each post has one module
      * 
-     * @return hasMany
+     * @return belongsTo
      */
     public function module(){
         return $this->belongsTo(Module::class);
+    }
+
+    /**
+     * A post can have many views
+     * 
+     * @return hasMany
+     */
+    public function views(){
+        return $this->hasMany(View::class,'post_id');
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Module;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Exists;
 
 class PostController extends Controller
 {
@@ -24,8 +25,15 @@ class PostController extends Controller
     {
         $post = Posts::with('comments.user')->findOrFail($id);
 
+        $ip = request()->ip();
+        $hasViewed = $post->views()->where('ip_address', $ip)->exists();
+        if (!$hasViewed) {
+            $post->views()->create(['ip_address' => $ip]);
+        }
+
         return view('post', [
-            'post' => $post
+            'post' => $post,
+            'viewCount' => $post->views->count()
         ]);
     }
 
