@@ -29,6 +29,8 @@ class PostsFactory extends Factory
             'excerpt' => Str::limit($body,100),
             // Assigns body
             'body' => $body,
+            // Assigns random image
+            'image_path' => 'images/' . $this->faker->unique()->image('public/storage/images', 640, 480, null, false),
             // Select a random existing admin user
             'user_id' => User::where('role', 'admin')->inRandomOrder()->first()->id,
             // Select a random existing module

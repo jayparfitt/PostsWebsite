@@ -12,7 +12,7 @@ class Posts extends Model
 
     // Attributes to be mass assigned
     protected $fillable = [
-        'title', 'excerpt', 'body', 'module_id', 'user_id'
+        'title', 'excerpt', 'body','image_path', 'module_id', 'user_id'
     ];
 
     /**

@@ -7,6 +7,8 @@ use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Exists;
+use Illuminate\Support\Facades\Storage;
+
 
 class PostController extends Controller
 {
@@ -69,14 +71,15 @@ class PostController extends Controller
             'excerpt' => 'required|string|max:500',
             'body' => 'required|string',
             'module_id' => 'nullable|exists:modules,id',
-            'newModuleName' => 'nullable|string|max:255'
+            'newModuleName' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        // for new module creation
+        // Handle new module creation
         if (!empty($validated['newModuleName'])) {
             $newModule = Module::create([
                 'name' => $validated['newModuleName'],
-                'slug' => \Illuminate\Support\Str::slug($validated['newModuleName'])
+                'slug' => \Illuminate\Support\Str::slug($validated['newModuleName']),
             ]);
             $validated['module_id'] = $newModule->id;
         }
@@ -86,11 +89,18 @@ class PostController extends Controller
             return redirect()->back()->withErrors(['module_id' => 'Please select or create a module']);
         }
 
+        // Save the image if uploaded
+        if ($request->hasFile('image')) {
+            $validated['image_path'] = $request->file('image')->store('images', 'public');
+        }
+
         $validated['user_id'] = Auth::id();
 
         Posts::create($validated);
+
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
+
 
     // Show the form to edit an existing post
     public function edit(Posts $post)
@@ -110,13 +120,24 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'excerpt' => 'required|string|max:500',
             'body' => 'required|string',
-            'module_id' => 'required|exists:modules,id'
+            'module_id' => 'required|exists:modules,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        // Save the new image if uploaded
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($post->image_path) {
+                Storage::disk('public')->delete($post->image_path);
+            }
+            $validated['image_path'] = $request->file('image')->store('images', 'public');
+        }
 
         $post->update($validated);
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
+
 
     // Delete a post
     public function destroy(Posts $post)

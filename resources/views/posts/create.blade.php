@@ -15,7 +15,7 @@
     </div>
     @endif
 
-    <form method="POST" action="{{ route('posts.store') }}">
+    <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="mb-6">
             <label for="title" class="block text-sm font-bold text-gray-700">Title</label>
@@ -34,6 +34,12 @@
             <label for="body" class="block text-sm font-bold text-gray-700">Body</label>
             <textarea id="body" name="body" required
                 class="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">{{ old('body') }}</textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="image" class="block text-sm font-bold text-gray-700">Upload Image</label>
+            <input type="file" id="image" name="image" accept="image/*"
+                class="w-full mt-2 p-2 border border-gray-300 rounded-lg">
         </div>
 
         <div>

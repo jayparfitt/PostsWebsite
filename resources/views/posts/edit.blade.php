@@ -25,7 +25,7 @@
             </div>
             @endif
 
-            <form method="POST" action="{{ route('posts.update', $post) }}">
+            <form method="POST" action="{{ route('posts.update', $post) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -60,6 +60,15 @@
                     </select>
                 </div>
 
+                <div class="mb-4">
+                    <label for="image" class="block text-sm font-bold text-gray-700">Upload New Image</label>
+                    @if ($post->image_path)
+                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="mb-4 w-32 h-32 object-cover">
+                    @endif
+                    <input type="file" id="image" name="image" accept="image/*"
+                        class="w-full mt-2 p-2 border border-gray-300 rounded-lg">
+                </div>
+
                 <div class="text-center">
                     <button type="submit"
                         class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">
@@ -83,7 +92,7 @@
 
     <!-- SweetAlert2 Script -->
     <script>
-        document.getElementById('delete-post').addEventListener('click', function (e) {
+        document.getElementById('delete-post').addEventListener('click', function(e) {
             e.preventDefault();
             Swal.fire({
                 title: 'Are you sure?',

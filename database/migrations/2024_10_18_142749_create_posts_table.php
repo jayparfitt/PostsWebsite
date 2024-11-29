@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string("title");
             $table->text('excerpt');
             $table->text("body");
+            $table->string('image_path')->nullable();
             /**
              * Foreign key referencing the 'users' table
              * Ensures the foreign key constraint is applied
