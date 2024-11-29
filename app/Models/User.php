@@ -18,7 +18,7 @@ class User extends Authenticatable
         'password',
         'role'
     ];
-    
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -27,13 +27,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     /**
      * A relationship where a User can have many Posts
      * 
      * @return hasMany
      */
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Posts::class);
     }
 
@@ -42,7 +43,13 @@ class User extends Authenticatable
      * 
      * @return hasMany
      */
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comments::class);
+    }
+
+    public function views()
+    {
+        return $this->hasMany(View::class, 'user_id');
     }
 }

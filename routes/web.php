@@ -12,13 +12,14 @@ Route::get('/', [PostController::class, 'index'])->name('index');
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
 
-// Route for creating posts
+// Route for posts
 Route::middleware(['auth'])->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::get('/posts/{post}/viewers', [PostController::class, 'viewers'])->name('posts.viewers');
 });
 
 // UserController Routes

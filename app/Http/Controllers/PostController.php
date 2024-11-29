@@ -21,19 +21,32 @@ class PostController extends Controller
     }
 
     // Display a specific post with comments
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $post = Posts::with('comments.user')->findOrFail($id);
 
-        $ip = request()->ip();
-        $hasViewed = $post->views()->where('ip_address', $ip)->exists();
+        $ip = $request->ip();
+        $userId = $request->user() ? $request->user()->id : null;
+
+        // Check if a view already exists for this user/IP combination and post
+        $hasViewed = $post->views()->where(function ($query) use ($userId, $ip) {
+            $query->where('ip_address', $ip);
+            if ($userId) {
+                $query->orWhere('user_id', $userId);
+            }
+        })->exists();
+
+        // Create a new view if it doesn't already exist
         if (!$hasViewed) {
-            $post->views()->create(['ip_address' => $ip]);
+            $post->views()->create([
+                'ip_address' => $ip,
+                'user_id' => $userId,
+            ]);
         }
 
         return view('post', [
             'post' => $post,
-            'viewCount' => $post->views->count()
+            'viewCount' => $post->views->count(),
         ]);
     }
 
@@ -122,5 +135,19 @@ class PostController extends Controller
         }
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+    }
+
+    public function viewers($id)
+    {
+        $post = Posts::with('views.user')->findOrFail($id);
+
+        $viewers = $post->views()
+            ->with('user') // Load associated user
+            ->get();
+
+        return view('views.viewers', [
+            'post' => $post,
+            'viewers' => $viewers
+        ]);
     }
 }

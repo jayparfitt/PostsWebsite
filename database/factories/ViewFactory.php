@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\View;
 use App\Models\Posts;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ViewFactory extends Factory
@@ -24,7 +25,8 @@ class ViewFactory extends Factory
     {
         return [
             'post_id' => Posts::factory(), // Associate a post
-            'ip_address' => $this->faker->ipv4, // Generate a random IP address
+            'user_id' => User::factory(),
+            'ip_address' => $this->faker->unique()->ipv4, // Generate a random IP address
         ];
     }
 }

@@ -15,6 +15,7 @@ class View extends Model
     protected $fillable = [
         'post_id', // Foreign key to the posts table
         'ip_address', // IP address of the viewer
+        'user_id'
     ];
 
     /**
@@ -23,5 +24,10 @@ class View extends Model
     public function post()
     {
         return $this->belongsTo(Posts::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
