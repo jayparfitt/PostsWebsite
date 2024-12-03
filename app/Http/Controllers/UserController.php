@@ -28,7 +28,8 @@ class UserController extends Controller
 
         return view('users.posts', [
             'user' => $user,
-            'posts' => $posts
+            'posts' => $posts,
+            'comments'=>$user->comments
         ]);
     }
 
