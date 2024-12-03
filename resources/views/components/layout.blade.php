@@ -17,11 +17,20 @@
             <div class="mt-8 md:mt-0 flex items-center space-x-4">
                 <a href="/" class="text-xs font-bold uppercase">Home Page</a>
 
+                <!-- Button only shown when not on the search books tab -->
+                <a href="{{ route('openLibrary.search') }}"
+                    class="bg-green-500 hover:bg-green-600 text-white text-xs font-semibold py-2 px-4 rounded-full"
+                    @if(Route::currentRouteName()==='openLibrary.search' ) style="display: none;" @endif>
+                    Search Books
+                </a>
+
+                <!-- Button only shown when user isn't logged in -->
                 @guest
                 <a href="{{ route('register') }}" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Create Account
                 </a>
 
+                <!-- Button only shown when user isn't logged in -->
                 <a href="{{ route('login') }}" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Login
                 </a>

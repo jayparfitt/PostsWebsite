@@ -5,8 +5,7 @@
             Main Page
         </h1>
 
-        <h2 class="inline-flex mt-2">By Jay Parfitt <img src="/images/lary-head.svg"
-                alt="Head of Lary the mascot"></h2>
+        <h2 class="inline-flex mt-2">By Jay Parfitt</h2>
 
         <p class="text-sm mt-14">
             Here are all posts from all modules! Use the filters below to search

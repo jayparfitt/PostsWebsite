@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\OpenLibraryService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +12,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Binds the OpenLibraryService to the service container
+        $this->app->singleton(OpenLibraryService::class, function ($app) {
+            return new OpenLibraryService();
+        });
     }
 
     /**

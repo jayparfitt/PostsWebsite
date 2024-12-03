@@ -6,6 +6,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OpenLibraryController;
 
 // Route for displaying all posts on the homepage
 Route::get('/', [PostController::class, 'index'])->name('index');
@@ -54,6 +55,10 @@ Route::get('posts/{id}', [PostController::class, 'show'])->where('id', '[0-9]+')
 
 // Route for displaying posts in a specific module by slug
 Route::get('modules/{module:slug}', [ModuleController::class, 'show']);
+
+// External API: OpenLibrary
+Route::get('/books/search', [OpenLibraryController::class, 'search'])->name('openLibrary.search');
+
 
 // Auth routes from Laravel Breeze
 require __DIR__ . '/auth.php';
