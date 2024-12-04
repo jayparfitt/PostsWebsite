@@ -13,14 +13,20 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     // Display a list of posts on the homepage
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Posts::latest()->with(['user', 'module'])->get();
+        $query = Posts::query();
 
-        return view('posts', [
-            'posts' => $posts
-        ]);
+        if ($request->has('module') && $request->module) {
+            $query->where('module_id', $request->module);
+        }
+
+        $posts = $query->orderBy('created_at', 'desc')->get();
+        $modules = Module::all();
+
+        return view('posts', compact('posts', 'modules'));
     }
+
 
     // Display a specific post with comments
     public function show(Request $request, $id)
