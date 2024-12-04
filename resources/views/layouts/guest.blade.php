@@ -20,12 +20,20 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img src="/images/logo.png" alt="Logo">
             </a>
         </div>
 
         <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
             {{ $slot }}
+        </div>
+
+        <div class="mb-4">
+            <button
+                onclick="history.back()"
+                class="text-white bg-blue-500 hover:bg-blue-600 font-semibold py-2 px-4 rounded-md shadow-md">
+                Back
+            </button>
         </div>
     </div>
 </body>
