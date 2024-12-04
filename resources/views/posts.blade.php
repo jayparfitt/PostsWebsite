@@ -8,7 +8,7 @@
         <h2 class="inline-flex mt-2">By Jay Parfitt</h2>
 
         <p class="text-sm mt-14">
-            Here are all posts from all modules! Use the filters below to search
+            Here are all posts! Use the filters below to search
         </p>
 
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">

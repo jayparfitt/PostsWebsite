@@ -1,5 +1,3 @@
-import 'livewire/livewire';
-
 document.addEventListener("DOMContentLoaded", () => {
     // Select the buttons
     const enlargeButton = document.getElementById("text-enlarge");
@@ -7,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetButton = document.getElementById("text-reset");
     const content = document.querySelector("body"); // Target the entire page content
 
-    let fontSize = parseInt(localStorage.getItem("fontSize")) || 16; // Default font size
+    let fontSize = parseInt(localStorage.getItem("fontSize")) || 16 // Default font size
 
     // Apply saved font size on page load
     content.style.fontSize = `${fontSize}px`;
