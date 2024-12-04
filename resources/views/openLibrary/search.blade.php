@@ -15,7 +15,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @foreach ($books as $book)
         <div class="p-4 border border-gray-300 rounded-lg">
-            <!-- Make the title clickable -->
+            <!-- Makes the title clickable -->
             <h2 class="text-lg font-semibold">
                 <a href="https://openlibrary.org{{ $book['key'] }}" target="_blank" class="text-blue-500 hover:underline">
                     {{ $book['title'] }}

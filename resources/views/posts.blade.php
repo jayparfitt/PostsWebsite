@@ -31,17 +31,14 @@
                 </svg>
             </div>
 
-            <!-- Other Filters -->
+            <!-- Filtering options -->
             <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
                 <select class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold">
                     <option value="category" disabled selected>Sort By
                     </option>
-                    <option value="up">Date Added(Ascending)
-                    </option>
-                    <option value="down">Date Added(Descending)
-                    </option>
-                    <option value="popularity">Popularity
-                    </option>
+                    <option value="up">Date Added (Ascending)</option>
+                    <option value="down">Date Added (Descending)</option>
+                    <option value="popularity">Popularity</option>
                 </select>
 
                 <svg class="transform -rotate-90 absolute pointer-events-none" style="right: 12px;" width="22"
@@ -55,25 +52,24 @@
                 </svg>
             </div>
 
-            <!-- Search -->
+            <!-- Search post option -->
             <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
-                <form method="GET" action="#">
-                    <input type="text" name="search" placeholder="Find something"
-                        class="bg-transparent placeholder-black font-semibold text-sm">
-                </form>
+                <livewire:search-posts />
             </div>
+
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
         @if ($posts->count())
+        <!-- Adds the most relevant post depending on sorting -->
         <x-latestPost :post="$posts[0]" />
 
-        <div class="lg:grid lg:grid-cols-2">
+        <!-- Display all other posts -->
+        <div class="lg:grid lg:grid-cols-2 lg:gap-6 mt-6">
             @foreach ($posts->skip(1) as $post)
             <x-latestPost :post="$post" />
             @endforeach
-
         </div>
         @else
         <p class="text-center">No posts yet. Please come back later.</p>

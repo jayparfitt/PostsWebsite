@@ -5,6 +5,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="{{ mix('css/app.css') }}">
+@livewireStyles
+
 <body style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
         <nav class="md:flex md:justify-between md:items-center">
@@ -13,6 +16,17 @@
                     <img src="/images/logo.png" alt="testTitle" width="180" height="50">
                 </a>
             </div>
+
+            <nav class="md:flex md:justify-between md:items-center">
+
+                <!-- Add Text Resize Controls -->
+                <div id="text-resize-controls" class="flex space-x-2">
+                    <button id="text-enlarge" class="bg-blue-500 text-white py-1 px-3 rounded-full" aria-label="Increase text size">A+</button>
+                    <button id="text-reset" class="bg-gray-500 text-white py-1 px-3 rounded-full" aria-label="Reset text size">A</button>
+                    <button id="text-minimize" class="bg-blue-500 text-white py-1 px-3 rounded-full" aria-label="Decrease text size">A-</button>
+                </div>
+            </nav>
+
 
             <div class="mt-8 md:mt-0 flex items-center space-x-4">
                 <a href="/" class="text-xs font-bold uppercase">Home Page</a>
@@ -114,4 +128,8 @@
             }
         });
     </script>
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    @livewireScripts
+
 </body>
