@@ -5,8 +5,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="{{ mix('css/app.css') }}">
 @livewireStyles
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <body style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
@@ -25,6 +25,7 @@
                     <button id="text-reset" class="bg-gray-500 text-white py-1 px-3 rounded-full" aria-label="Reset text size">A</button>
                     <button id="text-minimize" class="bg-blue-500 text-white py-1 px-3 rounded-full" aria-label="Decrease text size">A-</button>
                 </div>
+
             </nav>
 
 
@@ -95,6 +96,7 @@
                     <form method="POST" action="#" class="lg:flex text-sm">
                         <div class="lg:py-3 lg:px-5 flex items-center">
 
+
                             <input id="email" type="text" placeholder="Your email address"
                                 class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
                         </div>
@@ -126,7 +128,6 @@
         });
     </script>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
     @livewireScripts
 
 </body>

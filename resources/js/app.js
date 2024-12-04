@@ -1,35 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Select the buttons
     const enlargeButton = document.getElementById("text-enlarge");
     const minimizeButton = document.getElementById("text-minimize");
     const resetButton = document.getElementById("text-reset");
-    const content = document.querySelector("body"); // Target the entire page content
+    const root = document.documentElement; // Target the root element (html)
 
-    let fontSize = parseInt(localStorage.getItem("fontSize")) || 16 // Default font size
+    let baseFontSize =
+        parseInt(window.getComputedStyle(root).fontSize, 10) || 16; // Default base font size
 
-    // Apply saved font size on page load
-    content.style.fontSize = `${fontSize}px`;
+    // Load saved font size from localStorage
+    const savedFontSize = parseInt(localStorage.getItem("fontSize"));
+    if (savedFontSize) {
+        root.style.fontSize = `${savedFontSize}px`;
+        baseFontSize = savedFontSize;
+    }
 
     // Enlarge Text
     enlargeButton?.addEventListener("click", () => {
-        fontSize += 2;
-        content.style.fontSize = `${fontSize}px`;
-        localStorage.setItem("fontSize", fontSize); // Save preference
+        baseFontSize += 2;
+        root.style.fontSize = `${baseFontSize}px`;
+        localStorage.setItem("fontSize", baseFontSize); // Save preference
     });
 
     // Minimize Text
     minimizeButton?.addEventListener("click", () => {
-        if (fontSize > 10) {
-            fontSize -= 2;
-            content.style.fontSize = `${fontSize}px`;
-            localStorage.setItem("fontSize", fontSize); // Save preference
+        if (baseFontSize > 10) {
+            baseFontSize -= 2;
+            root.style.fontSize = `${baseFontSize}px`;
+            localStorage.setItem("fontSize", baseFontSize); // Save preference
         }
     });
 
     // Reset Text
     resetButton?.addEventListener("click", () => {
-        fontSize = 16;
-        content.style.fontSize = `${fontSize}px`;
+        baseFontSize = 16; // Default size
+        root.style.fontSize = `${baseFontSize}px`;
         localStorage.removeItem("fontSize"); // Clear preference
     });
 });
