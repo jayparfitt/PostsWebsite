@@ -7,6 +7,8 @@
 
 @livewireStyles
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 <body style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
@@ -80,6 +82,31 @@
                 <a href="{{ route('posts.create') }}" class="btn btn-primary bg-blue-500 text-white rounded-full px-3 py-2 hover:bg-blue-600">
                     Create New Post
                 </a>
+                <div class="relative">
+                    <button id="notifications-button" class="text-sm font-medium">
+                        🔔 Notifications
+                    </button>
+                    <div id="notifications-dropdown" class="absolute right-0 mt-2 w-64 bg-white shadow-md hidden">
+                        @if(auth()->user()->notifications->isEmpty())
+                        <p class="p-4 text-gray-500 text-sm">No new notifications</p>
+                        @else
+                        @foreach(auth()->user()->unreadNotifications as $notification)
+                        <div class="p-2 border-b flex justify-between items-center">
+                            <div>
+                                <a href="{{ route('posts.show', $notification->data['post_id']) }}" class="text-blue-500 hover:underline">
+                                    {{ $notification->data['message'] }}
+                                </a>
+                            </div>
+                            <button
+                                class="text-red-500 hover:underline text-xs"
+                                onclick="markAsRead('{{ $notification->id }}', this)">
+                                Mark as read
+                            </button>
+                        </div>
+                        @endforeach
+                        @endif
+                    </div>
+                </div>
                 @endif
                 @endauth
             </div>
@@ -126,6 +153,42 @@
                 userMenuDropdown.classList.add('hidden');
             }
         });
+    </script>
+
+    <script>
+        document.getElementById('notifications-button').addEventListener('click', () => {
+            const dropdown = document.getElementById('notifications-dropdown');
+            dropdown.classList.toggle('hidden');
+        });
+
+        function markAsRead(notificationId, buttonElement) {
+            // Send a POST request to mark the notification as read
+            fetch(`/notifications/${notificationId}/mark-as-read`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Remove the notification from the DOM
+                        const notificationDiv = buttonElement.closest('div');
+                        notificationDiv.remove();
+
+                        // Optionally, show a "No new notifications" message
+                        const dropdown = document.getElementById('notifications-dropdown');
+                        if (dropdown.querySelectorAll('.p-2').length === 0) {
+                            dropdown.innerHTML = '<p class="p-4 text-gray-500 text-sm">No new notifications</p>';
+                        }
+                    } else {
+                        console.error('Failed to mark notification as read');
+                    }
+                })
+                .catch(error => {
+                    console.error('An error occurred:', error);
+                });
+        }
     </script>
 
     @livewireScripts

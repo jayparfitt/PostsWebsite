@@ -9,12 +9,28 @@
             <main class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">
                 <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
                     <div class="col-span-8">
-                        <h1 class="font-bold text-3xl lg:text-4xl mb-10">{{ $post->title }}</h1>
-                        <p class="text-sm text-gray-600">
+                        <!-- Post Title -->
+                        <h1 class="font-bold text-3xl lg:text-4xl mb-10 text-center">{{ $post->title }}</h1>
+
+                        <!-- Post Image -->
+                        @if ($post->image_path)
+                        <div class="mb-10">
+                            <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}"
+                                class="w-full h-full object-cover rounded-md">
+                            @else
+                            <img src="/images/placeholder.jpg" alt="Placeholder image" class="w-full h-full object-cover">
+                        </div>
+                        @endif
+
+                        <!-- Post Details -->
+                        <p class="text-sm text-gray-600 mb-6">
                             Posted by: <span class="font-bold">{{ $post->user->name }}</span>
                         </p>
-                        <p>{{ $post->body }}</p>
 
+                        <!-- Post Body -->
+                        <p class="leading-loose text-gray-800">{{ $post->body }}</p>
+
+                        <!-- Post Views -->
                         <div class="mt-4">
                             <p class="text-gray-500 text-sm">
                                 <a href="{{ route('posts.viewers', $post->id) }}" class="text-blue-500 hover:underline">
@@ -23,6 +39,7 @@
                             </p>
                         </div>
 
+                        <!-- Edit Post Button (if user is the author) -->
                         @if (Auth::id() === $post->user_id)
                         <div class="mt-6">
                             <a href="{{ route('posts.edit', $post) }}"

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OpenLibraryController;
+use Illuminate\Http\Request;
 
 // Route for displaying all posts on the homepage
 Route::get('/', [PostController::class, 'index'])->name('index');
@@ -58,6 +59,21 @@ Route::get('modules/{module:slug}', [ModuleController::class, 'show']);
 
 // External API: OpenLibrary
 Route::get('/books/search', [OpenLibraryController::class, 'search'])->name('openLibrary.search');
+
+// Notifications route
+Route::post('/notifications/{id}/mark-as-read', function ($id, Request $request) {
+    $user = \App\Models\User::find($request->user()->id);
+    $notification = $user->notifications()->find($id);
+
+    if (!$notification) {
+        return response()->json(['error' => 'Notification not found'], 404);
+    }
+
+    $notification->markAsRead();
+    return response()->json(['success' => true]);
+});
+
+
 
 
 // Auth routes from Laravel Breeze

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comments;
 use App\Models\Posts;
+use App\Notifications\PostInteractionNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -25,18 +26,37 @@ class CommentController extends Controller
     // Store a newly created comment
     public function store(Request $request, Posts $post)
     {
+        // Validate the request
         $validated = $request->validate([
             'body' => 'required|string|max:500',
         ]);
 
+        // Get the authenticated user's ID
         $userId = $request->user()->id;
 
-        $post->comments()->create([
+        // Create the comment
+        $comment = $post->comments()->create([
             'body' => $validated['body'],
             'user_id' => $userId
         ]);
+
+        // Notify the post owner
+        if ($post->user_id !== $userId) { // Stops notifications from themselves
+            $postOwner = $post->user; // Post Owner
+            $interactionDetails = [
+                'post_id' => $post->id,
+                'comment_id' => $comment->id,
+                'interactionName' => $request->user()->name,
+                'message' => $request->user()->name . ' commented on your post',
+            ];
+
+            $postOwner->notify(new PostInteractionNotification($interactionDetails));
+        }
+
+        // Redirect back to the post with a success message
         return redirect()->route('posts.show', $post)->with('success', 'Comment created successfully.');
     }
+
 
     // Display a specific comment
     public function show($id)
