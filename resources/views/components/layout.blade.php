@@ -9,6 +9,24 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
+<!-- Displays a success message when a CRUD action is completed -->
+@if (session('success'))
+<div id="success-popup" class="relative bg-green-500 text-white text-sm font-bold p-4 rounded mt-4">
+    <button
+        id="close-success-popup"
+        class="absolute top-1 right-2 text-white font-bold"
+        aria-label="Close">
+        &times;
+    </button>
+    {{ session('success') }}
+</div>
+
+<script>
+    document.getElementById('close-success-popup').addEventListener('click', function() {
+        document.getElementById('success-popup').style.display = 'none';
+    });
+</script>
+@endif
 
 <body style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
@@ -21,7 +39,7 @@
 
             <nav class="md:flex md:justify-between md:items-center">
 
-                <!-- Add Text Resize Controls -->
+                <!-- Text Resize Controls -->
                 <div id="text-resize-controls" class="flex space-x-2">
                     <button id="text-enlarge" class="bg-blue-500 text-white py-1 px-3 rounded-full" aria-label="Increase text size">A+</button>
                     <button id="text-reset" class="bg-gray-500 text-white py-1 px-3 rounded-full" aria-label="Reset text size">A</button>
@@ -53,6 +71,7 @@
                 </a>
                 @endguest
 
+                <!-- User dropdown options, only show when User/Admin is logged in -->
                 @auth
                 <div class="relative">
                     <button id="user-menu-button" class="flex items-center focus:outline-none">
@@ -78,18 +97,22 @@
                     </div>
                 </div>
 
+                <!--Create post option is displayed for Admins only -->
                 @if(auth()->user()->role === 'admin')
                 <a href="{{ route('posts.create') }}" class="btn btn-primary bg-blue-500 text-white rounded-full px-3 py-2 hover:bg-blue-600">
                     Create New Post
                 </a>
+                <!-- Notification option is displayed for Admins only -->
                 <div class="relative">
                     <button id="notifications-button" class="text-sm font-medium">
                         🔔 Notifications
                     </button>
                     <div id="notifications-dropdown" class="absolute right-0 mt-2 w-64 bg-white shadow-md hidden">
+                        <!-- If no notifications, the following is displayed -->
                         @if(auth()->user()->notifications->isEmpty())
                         <p class="p-4 text-gray-500 text-sm">No new notifications</p>
                         @else
+                        <!-- Shows all notifications for that admin -->
                         @foreach(auth()->user()->unreadNotifications as $notification)
                         <div class="p-2 border-b flex justify-between items-center">
                             <div>
@@ -97,6 +120,7 @@
                                     {{ $notification->data['message'] }}
                                 </a>
                             </div>
+                            <!-- Mark as read allows the notifications to be removed -->
                             <button
                                 class="text-red-500 hover:underline text-xs"
                                 onclick="markAsRead('{{ $notification->id }}', this)">
@@ -155,6 +179,7 @@
         });
     </script>
 
+    <!-- Notification dropdown when button is pressed -->
     <script>
         document.getElementById('notifications-button').addEventListener('click', () => {
             const dropdown = document.getElementById('notifications-dropdown');
@@ -176,7 +201,7 @@
                         const notificationDiv = buttonElement.closest('div');
                         notificationDiv.remove();
 
-                        // Optionally, show a "No new notifications" message
+                        // Show a "No new notifications" message
                         const dropdown = document.getElementById('notifications-dropdown');
                         if (dropdown.querySelectorAll('.p-2').length === 0) {
                             dropdown.innerHTML = '<p class="p-4 text-gray-500 text-sm">No new notifications</p>';
