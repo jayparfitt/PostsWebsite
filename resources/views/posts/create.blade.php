@@ -1,5 +1,6 @@
 <!doctype html>
 <x-layout>
+    <!-- View fr creating a new post -->
     <h1 for="createNew" class="block text-sm font-bold text-gray-700">Create a New Post</h1>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -85,6 +86,7 @@
                 moduleDropdown.disabled = true;
             });
 
+            // cancel the new module selection
             cancelModuleButton.addEventListener('click', function() {
                 newModuleSection.style.display = 'none';
                 moduleDropdown.disabled = false;

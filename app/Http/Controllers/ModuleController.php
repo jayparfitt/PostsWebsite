@@ -7,20 +7,20 @@ use Illuminate\Http\Request;
 
 class ModuleController extends Controller
 {
-    // Display a listing of all modules (Read - all)
+    // Display a listing of all modules 
     public function index()
     {
         $modules = Module::all();
         return view('modules.index', ['modules' => $modules]);
     }
 
-    // Show the form for creating a new module (Create - form)
+    // Show the form for creating a new module 
     public function create()
     {
         return view('modules.create');
     }
 
-    // Store a newly created module (Create - save)
+    // Store a newly created module 
     public function store(Request $request)
     {
         $request->validate([
@@ -42,13 +42,13 @@ class ModuleController extends Controller
         return view('posts', compact('posts', 'modules'))->with('selectedModule', $module->id);
     }
 
-    // Show the form for editing a module (Update - form)
+    // Show the form for editing a module 
     public function edit(Module $module)
     {
         return view('modules.edit', compact('module'));
     }
 
-    // Update the specified module (Update - save)
+    // Update the specified module 
     public function update(Request $request, Module $module)
     {
         $request->validate([
@@ -60,7 +60,7 @@ class ModuleController extends Controller
         return redirect()->route('modules.index');
     }
 
-    // Delete a module (Delete)
+    // Delete a module
     public function destroy(Module $module)
     {
         $module->delete();
