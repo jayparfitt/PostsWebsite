@@ -8,9 +8,11 @@
         <!-- Module Filter -->
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl mt-4">
             <select id="module-filter" class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold border-none focus:outline-none focus:ring-0">
-                <option value="" selected>All Modules</option>
+                <option value="" {{ empty($selectedModule) ? 'selected' : '' }}>All Modules</option>
                 @foreach($modules as $module)
-                <option value="{{ $module->id }}">{{ $module->name }}</option>
+                <option value="{{ $module->id }}" {{ isset($selectedModule) && $selectedModule == $module->id ? 'selected' : '' }}>
+                    {{ $module->name }}
+                </option>
                 @endforeach
             </select>
         </div>
@@ -54,18 +56,18 @@
         @endif
     </main>
 
+    <!-- Module filter script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('module-filter').addEventListener('change', function() {
                 const moduleId = this.value;
-                const allPosts = document.querySelectorAll('#posts-container > div');
-                allPosts.forEach(post => {
-                    if (!moduleId || post.dataset.moduleId == moduleId) {
-                        post.style.display = '';
-                    } else {
-                        post.style.display = 'none';
-                    }
-                });
+                if (moduleId) {
+                    // Redirects to homepage with query parameter for module
+                    window.location.href = `/?module=${moduleId}`;
+                } else {
+                    // Redirects to homepage showing all posts
+                    window.location.href = '/';
+                }
             });
         });
     </script>

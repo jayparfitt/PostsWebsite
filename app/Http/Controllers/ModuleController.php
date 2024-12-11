@@ -35,11 +35,11 @@ class ModuleController extends Controller
     // Display posts for a specific module based on its slug
     public function show(Module $module)
     {
-        $posts = $module->posts->load(['module', 'user']);
+        // Fetch posts for the specific module
+        $posts = $module->posts()->orderBy('created_at', 'desc')->get();
+        $modules = Module::all();
 
-        return view('posts', [
-            'posts' => $posts
-        ]);
+        return view('posts', compact('posts', 'modules'))->with('selectedModule', $module->id);
     }
 
     // Show the form for editing a module (Update - form)

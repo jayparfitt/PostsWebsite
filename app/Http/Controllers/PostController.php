@@ -6,7 +6,6 @@ use App\Models\Module;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Exists;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -16,15 +15,18 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $query = Posts::query();
+        $selectedModule = null;
 
         if ($request->has('module') && $request->module) {
             $query->where('module_id', $request->module);
+            $selectedModule = $request->module; // Checks the selected module
         }
 
+        // orders by date added
         $posts = $query->orderBy('created_at', 'desc')->get();
         $modules = Module::all();
 
-        return view('posts', compact('posts', 'modules'));
+        return view('posts', compact('posts', 'modules', 'selectedModule'));
     }
 
 
@@ -61,6 +63,7 @@ class PostController extends Controller
     // Show the form to create a new post
     public function create()
     {
+        // ensures only users can complete this action
         if (Auth::user()->role !== 'admin') {
             return redirect('/')->with('error', 'Unauthorized access');
         }

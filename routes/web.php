@@ -55,7 +55,7 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::get('posts/{id}', [PostController::class, 'show'])->where('id', '[0-9]+');
 
 // Route for displaying posts in a specific module by slug
-Route::get('modules/{module:slug}', [ModuleController::class, 'show']);
+Route::get('modules/{module:slug}', [ModuleController::class, 'show'])->name('modules.show');
 
 // External API: OpenLibrary
 Route::get('/books/search', [OpenLibraryController::class, 'search'])->name('openLibrary.search');
