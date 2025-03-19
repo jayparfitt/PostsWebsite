@@ -1,66 +1,66 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="https://laravel.com" target="_blank">
+    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+  </a>
 </p>
 
-## About Laravel
+<p align="center">
+  <a href="https://github.com/jayparfitt/PostsWebsite/actions">
+    <img src="https://github.com/jayparfitt/PostsWebsite/workflows/tests/badge.svg" alt="Build Status">
+  </a>
+  <a href="https://packagist.org/packages/jayparfitt/postswebsite">
+    <img src="https://img.shields.io/packagist/dt/jayparfitt/postswebsite" alt="Total Downloads">
+  </a>
+  <a href="https://packagist.org/packages/jayparfitt/postswebsite">
+    <img src="https://img.shields.io/packagist/v/jayparfitt/postswebsite" alt="Latest Stable Version">
+  </a>
+  <a href="https://packagist.org/packages/jayparfitt/postswebsite">
+    <img src="https://img.shields.io/packagist/l/jayparfitt/postswebsite" alt="License">
+  </a>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## About PostsWebsite
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**PostsWebsite** is a web application built using the Laravel framework, designed to facilitate the creation, management, and display of user-generated posts. Leveraging Laravel's robust features, this project offers a structured approach to developing scalable and maintainable web applications.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Key Features
 
-## Learning Laravel
+- **User Authentication:** Implements secure user registration and login functionalities, ensuring that only authorized users can create or manage posts.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Post Management:** Allows authenticated users to create, edit, and delete posts, providing a user-friendly interface for content management.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Responsive Design:** Utilizes Tailwind CSS for styling, ensuring the application is accessible and visually appealing across various devices.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Database Integration:** Employs Laravel's Eloquent ORM for seamless interaction with the database, facilitating efficient data retrieval and manipulation.
 
-## Laravel Sponsors
+- **Routing:** Utilizes Laravel's routing system to manage URL endpoints, ensuring clean and readable URLs for different sections of the application.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Project Structure
 
-### Premium Partners
+- **app/**: Contains the core application code, including models, controllers, and services.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **bootstrap/**: Holds files responsible for bootstrapping the application.
 
-## Contributing
+- **config/**: Contains configuration files for various services and components.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **database/**: Includes database migrations and seeders for setting up and populating the database.
 
-## Code of Conduct
+- **public/**: Serves as the entry point for the application, containing the index.php file and public assets.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **resources/**: Houses views, language files, and other frontend resources.
 
-## Security Vulnerabilities
+- **routes/**: Defines the application's routing, mapping URLs to specific controllers and actions.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **storage/**: Used for storing logs, compiled templates, and other generated files.
+
+- **tests/**: Contains automated tests to ensure the application's functionality and reliability.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+Special thanks to the Laravel community for their extensive documentation and support.
+
+For more detailed information and documentation, please refer to the official Laravel website: [https://laravel.com/](https://laravel.com/)
